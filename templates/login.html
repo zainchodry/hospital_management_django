@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Center container */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card */
+.auth-card {
+    background: #ffffff;
+    padding: 40px;
+    width: 380px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Title */
+.auth-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Django fields */
+.auth-card input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Login button */
+.btn-login-main {
+    width: 100%;
+    padding: 12px;
+    background: #03a9f4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-login-main:hover {
+    background: #0288d1;
+}
+
+/* Footer */
+.auth-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-register {
+    display: inline-block;
+    padding: 8px 20px;
+    background: #ff9800;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: 0.3s;
+}
+
+.btn-register:hover {
+    background: #e68900;
+}
+</style>
+
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">Login</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-login-main">Login</button>
+
+            <div class="auth-footer">
+                <p>Don't have an account?</p>
+                <a href="{% url 'register' %}" class="btn-register">Register</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

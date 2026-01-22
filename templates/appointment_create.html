@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Container */
+.appointment-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* Card */
+.appointment-card {
+    background: white;
+    padding: 40px;
+    width: 500px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Title */
+.appointment-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Inputs */
+.appointment-card input,
+.appointment-card select,
+.appointment-card textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Submit button */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background: #43a047;
+}
+</style>
+
+<div class="appointment-container">
+    <div class="appointment-card">
+        <h2>Book Appointment</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

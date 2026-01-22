@@ -12,7 +12,7 @@ class RegisterForm(UserCreationForm):
     )
     username = forms.CharField(max_length=100, label='Full-Name', widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class':'form-control'}))
-    role = forms.CharField(label='Select-Role', widget=forms.Select(attrs={'class':'form-control'}))
+    role = forms.ChoiceField(label='Select-Role', choices=Role_Choices, widget=forms.Select(attrs={'class':'form-control'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
     password2 = forms.CharField(label='Confirm-Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 

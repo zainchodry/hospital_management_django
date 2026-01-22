@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Container */
+.appointments-container {
+    min-height: 100vh;
+    padding: 40px;
+}
+
+/* Header */
+.appointments-header {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.appointments-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+/* Book Appointment button */
+.btn-book {
+    padding: 10px 20px;
+    background: #4caf50;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-book:hover {
+    background: #43a047;
+}
+
+/* Appointments list */
+.appointments-list {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Single appointment */
+.appointment-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.appointment-item:last-child {
+    border-bottom: none;
+}
+
+.appointment-item span {
+    font-weight: 500;
+    color: #555;
+}
+
+/* Manage button */
+.btn-manage {
+    padding: 6px 14px;
+    background: #03a9f4;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-manage:hover {
+    background: #0288d1;
+}
+</style>
+
+<div class="appointments-container">
+
+    <div class="appointments-header">
+        <h2>Appointments</h2>
+
+        {% if request.user.role == "patient" %}
+            <a href="{% url 'appointment_create' %}" class="btn-book">+ Book Appointment</a>
+        {% endif %}
+    </div>
+
+    <div class="appointments-list">
+        {% for a in appointments %}
+            <div class="appointment-item">
+                <span>{{ a.patient.user.username }} — {{ a.date }} — {{ a.status }}</span>
+
+                {% if request.user.role == "doctor" and a.status == "pending" %}
+                    <a href="{% url 'appointment_manage' a.id %}" class="btn-manage">Manage</a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No appointments found.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

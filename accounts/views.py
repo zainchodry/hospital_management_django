@@ -20,8 +20,11 @@ def register(request):
 
 @login_required
 def profile_edit(request):
+    # Ensure user has a profile, create one if it doesn't exist
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    
     user_form = UserUpdateForm(request.POST or None, instance=request.user)
-    profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=request.user.profile)
+    profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
 
     if user_form.is_valid() and profile_form.is_valid():
         user_form.save()

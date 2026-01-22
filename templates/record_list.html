@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Container */
+.records-container {
+    min-height: 100vh;
+    padding: 40px;
+}
+
+/* Header */
+.records-header {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.records-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+/* Create button */
+.btn-create {
+    padding: 10px 20px;
+    background: #4caf50;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-create:hover {
+    background: #43a047;
+}
+
+/* Record list */
+.records-list {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Single record */
+.record-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.record-item:last-child {
+    border-bottom: none;
+}
+
+.record-item a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    display: block;
+    transition: 0.3s;
+}
+
+.record-item a:hover {
+    color: #03a9f4;
+}
+</style>
+
+<div class="records-container">
+
+    <div class="records-header">
+        <h2>Medical Records</h2>
+
+        {% if request.user.role == "doctor" %}
+            <a href="{% url 'record_create' %}" class="btn-create">+ Create Record</a>
+        {% endif %}
+    </div>
+
+    <div class="records-list">
+        {% for r in records %}
+            <div class="record-item">
+                <a href="{% url 'record_detail' r.id %}">
+                    {{ r.patient.user.username }} — {{ r.created_at.date }}
+                </a>
+            </div>
+        {% empty %}
+            <p>No medical records found.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

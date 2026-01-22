@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Container */
+.record-detail-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* Card */
+.record-detail-card {
+    background: white;
+    padding: 40px;
+    width: 500px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Title */
+.record-detail-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Record details */
+.record-detail-card p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+}
+
+.record-detail-card b {
+    color: #333;
+}
+
+/* Download report button */
+.btn-download {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #03a9f4;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn-download:hover {
+    background: #0288d1;
+}
+</style>
+
+<div class="record-detail-container">
+    <div class="record-detail-card">
+        <h2>{{ record.patient.user.username }}</h2>
+
+        <p><b>Doctor:</b> {{ record.doctor.username }}</p>
+        <p><b>Diagnosis:</b> {{ record.diagnosis }}</p>
+        <p><b>Prescription:</b> {{ record.prescription }}</p>
+        <p><b>Notes:</b> {{ record.notes }}</p>
+
+        {% if record.report_file %}
+            <a href="{{ record.report_file.url }}" class="btn-download">Download Report</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

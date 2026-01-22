@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Dashboard container */
+.dashboard-container {
+    min-height: 100vh;
+    padding: 40px;
+}
+
+/* Header */
+.dashboard-header {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+}
+
+.dashboard-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+.dashboard-header p {
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Cards grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+/* Card */
+.dashboard-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+    transition: 0.3s;
+    text-decoration: none;
+    color: #333;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 15px 25px rgba(0,0,0,0.3);
+}
+
+/* Card titles */
+.dashboard-card h3 {
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+/* Logout button */
+.logout-btn {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 12px 30px;
+    background: #f44336;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #d32f2f;
+}
+</style>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+        <h2>Welcome, {{ request.user.username }} 👋</h2>
+        <p>Role: <strong>{{ request.user.role }}</strong></p>
+    </div>
+
+    <!-- Cards -->
+    <div class="dashboard-grid">
+        <a href="{% url 'profile' %}" class="dashboard-card">
+            <h3>My Profile</h3>
+        </a>
+
+        <a href="/appointments/" class="dashboard-card">
+            <h3>Appointments</h3>
+        </a>
+
+        <a href="/records/" class="dashboard-card">
+            <h3>Medical Records</h3>
+        </a>
+
+        <a href="/notifications/" class="dashboard-card">
+            <h3>Notifications</h3>
+        </a>
+    </div>
+
+    <!-- Logout -->
+    <div style="text-align:center;">
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+
+</div>
+
+{% endblock %}
